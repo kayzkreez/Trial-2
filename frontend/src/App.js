@@ -658,6 +658,21 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
     calculateRate(amount);
   };
 
+  const handleRouteChange = (route) => {
+    setFormData({ ...formData, transfer_route: route });
+    setRateData(null);
+    if (formData.send_amount) {
+      setTimeout(() => calculateRate(formData.send_amount), 100);
+    }
+  };
+
+  const handlePayoutMethodChange = (method) => {
+    setFormData({ ...formData, payout_method: method });
+    if (formData.send_amount) {
+      setTimeout(() => calculateRate(formData.send_amount), 100);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.status !== 'verified') {
