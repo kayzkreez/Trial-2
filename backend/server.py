@@ -324,12 +324,21 @@ async def get_profile(current_user: User = Depends(get_current_user)):
     }
 
 @api_router.post("/calculate-rate", response_model=RateCalculation)
-async def calculate_rate(amount_data: dict):
-    send_amount = amount_data.get("send_amount", 0)
+async def calculate_rate(rate_data: dict):
+    send_amount = rate_data.get("send_amount", 0)
+    transfer_route = rate_data.get("transfer_route", TransferRoute.ZIM_TO_INDIA)
+    payout_method = rate_data.get("payout_method")
+    
     if send_amount <= 0:
         raise HTTPException(status_code=400, detail="Send amount must be greater than 0")
     
-    return calculate_rates(send_amount)
+    # Convert string to enum if needed
+    if isinstance(transfer_route, str):
+        transfer_route = TransferRoute(transfer_route)
+    if isinstance(payout_method, str):
+        payout_method = PayoutMethod(payout_method)
+    
+    return calculate_rates(send_amount, transfer_route, payout_method)
 
 # Recipients
 @api_router.post("/recipients", response_model=dict)
