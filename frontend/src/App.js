@@ -1189,19 +1189,36 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                       />
                     </div>
                     
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        State *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.state}
-                        onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        required
-                        data-testid="recipient-state-input"
-                      />
-                    </div>
+                    {formData.country === 'India' && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          State *
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.state}
+                          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          required
+                          data-testid="recipient-state-input"
+                        />
+                      </div>
+                    )}
+                    
+                    {formData.country === 'Zimbabwe' && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Province
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.state}
+                          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          data-testid="recipient-province-input"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
