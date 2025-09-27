@@ -1304,7 +1304,7 @@ const TransactionHistoryTab = ({ transactions }) => {
                   <div>
                     <div className="text-gray-500">Fees</div>
                     <div className="font-medium">
-                      {transaction.send_currency || 'USD'} {transaction.fee_amount.toFixed(2)}
+                      {transaction.transfer_route === 'india_to_zim' ? 'USD' : (transaction.send_currency || 'USD')} {transaction.fee_amount.toFixed(2)}
                       {transaction.ecocash_fee > 0 && (
                         <div className="text-xs text-amber-600">+USD {transaction.ecocash_fee.toFixed(2)} EcoCash</div>
                       )}
