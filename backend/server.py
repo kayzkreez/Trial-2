@@ -203,7 +203,6 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
 
 # Calculate rates
 def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_method: PayoutMethod = None) -> RateCalculation:
-    fee_amount = send_amount * 0.07  # 7% fee
     ecocash_fee = 0.0
     
     if transfer_route == TransferRoute.ZIM_TO_INDIA:
