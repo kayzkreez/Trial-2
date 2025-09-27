@@ -765,24 +765,35 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
             </div>
             
             {rateData && (
-              <div className="bg-teal-50 rounded-lg p-4">
-                <h3 className="font-medium text-teal-800 mb-3">Transfer Details</h3>
+              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                <h3 className="font-medium text-blue-800 mb-3">Transfer Details</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>You send:</span>
-                    <span className="font-medium">${rateData.send_amount}</span>
+                    <span className="font-medium">{rateData.send_currency} {rateData.send_amount}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Transfer fee (7%):</span>
-                    <span className="font-medium">${rateData.fee_amount.toFixed(2)}</span>
+                    <span className="font-medium">{rateData.send_currency} {rateData.fee_amount.toFixed(2)}</span>
                   </div>
+                  {rateData.ecocash_fee > 0 && (
+                    <div className="flex justify-between">
+                      <span>EcoCash fee (5%):</span>
+                      <span className="font-medium text-amber-600">USD {rateData.ecocash_fee.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span>Exchange rate:</span>
-                    <span className="font-medium">₹{rateData.exchange_rate}/USD</span>
+                    <span className="font-medium">
+                      {rateData.transfer_route === 'zim_to_india' ? '₹' : '₹'}{rateData.exchange_rate}
+                      {rateData.transfer_route === 'zim_to_india' ? '/USD' : '/USD'}
+                    </span>
                   </div>
                   <div className="border-t pt-2 flex justify-between text-base">
                     <span className="font-medium">Recipient gets:</span>
-                    <span className="font-bold text-blue-600">₹{rateData.receive_amount.toFixed(2)}</span>
+                    <span className="font-bold text-blue-600">
+                      {rateData.receive_currency} {rateData.receive_amount.toFixed(2)}
+                    </span>
                   </div>
                 </div>
               </div>
