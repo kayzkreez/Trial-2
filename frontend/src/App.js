@@ -236,7 +236,7 @@ const AuthScreen = () => {
           <div className="text-center mb-8">
             <button
               onClick={() => navigate('/')}
-              className="text-teal-600 text-sm font-medium mb-4 hover:underline"
+              className="text-blue-600 text-sm font-medium mb-4 hover:underline"
             >
               ← Back to Home
             </button>
