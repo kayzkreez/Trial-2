@@ -263,7 +263,7 @@ const AuthScreen = () => {
               <button
                 onClick={() => setIsLogin(false)}
                 className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${
-                  !isLogin ? 'bg-white text-teal-600 shadow-sm' : 'text-gray-600'
+                  !isLogin ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-600'
                 }`}
                 data-testid="register-tab"
               >
