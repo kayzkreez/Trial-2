@@ -1082,7 +1082,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-teal-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 hover:bg-teal-700"
+                  className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 hover:bg-blue-700"
                   data-testid="save-recipient-btn"
                 >
                   {loading ? 'Saving...' : 'Save Recipient'}
