@@ -629,6 +629,7 @@ const Dashboard = () => {
 const SendMoneyTab = ({ user, recipients, onSuccess }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    transfer_route: 'zim_to_india',
     recipient_id: '',
     send_amount: '',
     payout_method: 'cash_pickup',
