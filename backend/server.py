@@ -200,18 +200,42 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
     return current_user
 
 # Calculate rates
-def calculate_rates(send_amount: float) -> RateCalculation:
+def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_method: PayoutMethod = None) -> RateCalculation:
     fee_amount = send_amount * 0.07  # 7% fee
-    net_amount = send_amount - fee_amount
-    exchange_rate = 87.0
-    receive_amount = net_amount * exchange_rate
+    ecocash_fee = 0.0
+    
+    if transfer_route == TransferRoute.ZIM_TO_INDIA:
+        # Zimbabwe → India: USD to INR
+        exchange_rate = 87.0  # INR per USD
+        send_currency = "USD"
+        receive_currency = "INR"
+        net_amount = send_amount - fee_amount
+        receive_amount = net_amount * exchange_rate
+        
+    else:  # INDIA_TO_ZIM
+        # India → Zimbabwe: INR to USD
+        exchange_rate = 90.0  # INR per USD (reverse rate)
+        send_currency = "INR"
+        receive_currency = "USD"
+        net_amount = send_amount - fee_amount
+        receive_amount = net_amount / exchange_rate
+        
+        # Add EcoCash fee if applicable
+        if payout_method == PayoutMethod.ECOCASH:
+            ecocash_fee = receive_amount * 0.05  # 5% EcoCash fee on USD amount
+            receive_amount = receive_amount - ecocash_fee
+    
     total_to_pay = send_amount
     
     return RateCalculation(
+        transfer_route=transfer_route,
         send_amount=send_amount,
+        send_currency=send_currency,
         fee_amount=fee_amount,
+        ecocash_fee=ecocash_fee,
         exchange_rate=exchange_rate,
         receive_amount=receive_amount,
+        receive_currency=receive_currency,
         total_to_pay=total_to_pay
     )
 
