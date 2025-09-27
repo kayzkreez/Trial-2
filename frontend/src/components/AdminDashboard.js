@@ -614,68 +614,155 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
 };
 
 const SettingsTab = () => {
+  const [settings, setSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [formData, setFormData] = useState({
+    zim_to_india_rate: 87.0,
+    india_to_zim_rate: 90.0,
+    transfer_fee_percentage: 7.0,
+    ecocash_fee_percentage: 5.0
+  });
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await axios.get('/admin/settings');
+      setSettings(response.data);
+      setFormData({
+        zim_to_india_rate: response.data.zim_to_india_rate,
+        india_to_zim_rate: response.data.india_to_zim_rate,
+        transfer_fee_percentage: response.data.transfer_fee_percentage,
+        ecocash_fee_percentage: response.data.ecocash_fee_percentage
+      });
+    } catch (error) {
+      toast.error('Failed to load settings');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveSettings = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await axios.post('/admin/settings', formData);
+      toast.success('Settings updated successfully');
+      fetchSettings();
+    } catch (error) {
+      toast.error('Failed to update settings');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm p-6">
-        <h3 className="text-lg font-bold text-gray-800 mb-6">System Settings</h3>
-        
-        <div className="space-y-6">
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-medium text-gray-800 mb-3">Exchange Rate Configuration</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">USD to INR Rate</label>
-                <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">₹87.00</div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Transaction Fee</label>
-                <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">7%</div>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mt-3">
-              Exchange rates and fees are currently fixed. Contact system administrator for updates.
-            </p>
-          </div>
-          
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-medium text-gray-800 mb-3">Admin Access</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Admin Phone</label>
-                <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">07657927838</div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Admin PIN</label>
-                <div className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">****</div>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mt-3">
-              Admin credentials are automatically verified during registration.
-            </p>
-          </div>
-          
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-medium text-gray-800 mb-3">System Information</h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Platform:</span>
-                <span className="text-gray-800">Mula-wave Money Transfer</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Version:</span>
-                <span className="text-gray-800">1.0.0</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Route:</span>
-                <span className="text-gray-800">Zimbabwe → India</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Status:</span>
-                <span className="text-green-600">✓ Operational</span>
-              </div>
-            </div>
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-bold text-gray-800">System Settings</h3>
+          <div className="text-sm text-gray-500">
+            Last updated: {settings?.updated_at ? new Date(settings.updated_at).toLocaleString() : 'Never'}
           </div>
         </div>
+        
+        <form onSubmit={handleSaveSettings} className="space-y-6">
+          {/* Exchange Rate Settings */}
+          <div className="border border-gray-200 rounded-lg p-4">
+            <h4 className="font-medium text-gray-800 mb-4">Exchange Rate Configuration</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Zimbabwe → India Rate (INR per USD)
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.zim_to_india_rate}
+                  onChange={(e) => setFormData({ ...formData, zim_to_india_rate: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  data-testid="zim-to-india-rate"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  India → Zimbabwe Rate (INR per USD)
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.india_to_zim_rate}
+                  onChange={(e) => setFormData({ ...formData, india_to_zim_rate: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  data-testid="india-to-zim-rate"
+                />
+              </div>
+            </div>
+            <div className="mt-4 text-sm text-gray-600">
+              <p><strong>Zimbabwe → India:</strong> USD amount × {formData.zim_to_india_rate} - {formData.transfer_fee_percentage}% fee</p>
+              <p><strong>India → Zimbabwe:</strong> INR amount ÷ {formData.india_to_zim_rate} - {formData.transfer_fee_percentage}% fee</p>
+            </div>
+          </div>
+
+          {/* Fee Settings */}
+          <div className="border border-gray-200 rounded-lg p-4">
+            <h4 className="font-medium text-gray-800 mb-4">Fee Configuration</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Transfer Fee (%)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={formData.transfer_fee_percentage}
+                  onChange={(e) => setFormData({ ...formData, transfer_fee_percentage: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  data-testid="transfer-fee"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  EcoCash Fee (%)
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={formData.ecocash_fee_percentage}
+                  onChange={(e) => setFormData({ ...formData, ecocash_fee_percentage: parseFloat(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  data-testid="ecocash-fee"
+                />
+              </div>
+            </div>
+            <div className="mt-4 text-sm text-gray-600">
+              EcoCash fee applies only to India → Zimbabwe transfers when EcoCash is selected as payout method.
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+              data-testid="save-settings-btn"
+            >
+              {saving ? 'Saving...' : 'Save Settings'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
