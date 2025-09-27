@@ -775,9 +775,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                   <div className="flex justify-between">
                     <span>Transfer fee (7%):</span>
                     <span className="font-medium">
-                      {rateData.transfer_route === 'zim_to_india' ? 'INR' : 
-                       rateData.transfer_route === 'india_to_zim' ? 'USD' : 
-                       rateData.send_currency} {rateData.fee_amount.toFixed(2)}
+                      {rateData.transfer_route === 'india_to_zim' ? 'USD' : 'USD'} {rateData.fee_amount.toFixed(2)}
                     </span>
                   </div>
                   {rateData.ecocash_fee > 0 && (
