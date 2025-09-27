@@ -698,13 +698,59 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Send Money to India 🇮🇳</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-6">Send Money Worldwide 🌍</h2>
         
         {step === 1 && (
           <div className="space-y-6">
+            {/* Transfer Route Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Transfer Route
+              </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  formData.transfer_route === 'zim_to_india' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                }`}>
+                  <input
+                    type="radio"
+                    name="transfer_route"
+                    value="zim_to_india"
+                    checked={formData.transfer_route === 'zim_to_india'}
+                    onChange={(e) => handleRouteChange(e.target.value)}
+                    className="sr-only"
+                  />
+                  <div className="text-center">
+                    <div className="text-2xl mb-2">🇿🇼 → 🇮🇳</div>
+                    <div className="font-medium">Zimbabwe to India</div>
+                    <div className="text-sm text-gray-600">Send USD, Receive INR</div>
+                    <div className="text-sm text-blue-600 font-medium">Rate: ₹87/USD</div>
+                  </div>
+                </label>
+                
+                <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  formData.transfer_route === 'india_to_zim' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                }`}>
+                  <input
+                    type="radio"
+                    name="transfer_route"
+                    value="india_to_zim"
+                    checked={formData.transfer_route === 'india_to_zim'}
+                    onChange={(e) => handleRouteChange(e.target.value)}
+                    className="sr-only"
+                  />
+                  <div className="text-center">
+                    <div className="text-2xl mb-2">🇮🇳 → 🇿🇼</div>
+                    <div className="font-medium">India to Zimbabwe</div>
+                    <div className="text-sm text-gray-600">Send INR, Receive USD</div>
+                    <div className="text-sm text-blue-600 font-medium">Rate: ₹90/USD</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount to Send (USD)
+                Amount to Send ({formData.transfer_route === 'zim_to_india' ? 'USD' : 'INR'})
               </label>
               <input
                 type="number"
