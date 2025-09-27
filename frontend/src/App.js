@@ -966,9 +966,11 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
         bank_name: '',
         account_number: '',
         ifsc_code: '',
+        sort_code: '',
         address: '',
         city: '',
-        state: ''
+        state: '',
+        country: 'India'
       });
       onUpdate();
     } catch (error) {
