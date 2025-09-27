@@ -1278,7 +1278,9 @@ const TransactionHistoryTab = ({ transactions }) => {
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <div className="font-medium text-gray-800">{transaction.order_number}</div>
-                    <div className="text-sm text-gray-600">To: {transaction.recipient_name}</div>
+                    <div className="text-sm text-gray-600">
+                      {transaction.transfer_route === 'zim_to_india' ? '🇿🇼 → 🇮🇳' : '🇮🇳 → 🇿🇼'} To: {transaction.recipient_name}
+                    </div>
                     <div className="text-sm text-gray-500">
                       {new Date(transaction.created_at).toLocaleDateString()}
                     </div>
