@@ -54,6 +54,11 @@ class TransferRoute(str, Enum):
     ZIM_TO_INDIA = "zim_to_india"
     INDIA_TO_ZIM = "india_to_zim"
 
+class MessageType(str, Enum):
+    SYSTEM = "system"
+    ADMIN = "admin"
+    TRANSACTION = "transaction"
+
 # Models
 class UserRegistration(BaseModel):
     phone: str
