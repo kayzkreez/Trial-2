@@ -641,7 +641,11 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
   const calculateRate = async (amount) => {
     if (!amount || amount <= 0) return;
     try {
-      const response = await axios.post('/calculate-rate', { send_amount: parseFloat(amount) });
+      const response = await axios.post('/calculate-rate', { 
+        send_amount: parseFloat(amount),
+        transfer_route: formData.transfer_route,
+        payout_method: formData.payout_method
+      });
       setRateData(response.data);
     } catch (error) {
       console.error('Rate calculation failed:', error);
