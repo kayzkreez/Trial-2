@@ -156,7 +156,7 @@ const WelcomeScreen = () => {
 
             <button
               onClick={() => navigate('/auth')}
-              className="w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-blue-600 to-slate-700 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
               data-testid="get-started-btn"
             >
               Get Started
