@@ -943,7 +943,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                   type="text"
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                   data-testid="recipient-name-input"
                 />
@@ -957,7 +957,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   required
                   data-testid="recipient-phone-input"
                 />
@@ -971,7 +971,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   data-testid="recipient-email-input"
                 />
               </div>
@@ -988,7 +988,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                       type="text"
                       value={formData.bank_name}
                       onChange={(e) => setFormData({ ...formData, bank_name: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       data-testid="bank-name-input"
                     />
                   </div>
@@ -1001,7 +1001,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                       type="text"
                       value={formData.account_number}
                       onChange={(e) => setFormData({ ...formData, account_number: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       data-testid="account-number-input"
                     />
                   </div>
@@ -1014,7 +1014,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                       type="text"
                       value={formData.ifsc_code}
                       onChange={(e) => setFormData({ ...formData, ifsc_code: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       data-testid="ifsc-code-input"
                     />
                   </div>
@@ -1033,7 +1033,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                       type="text"
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       data-testid="recipient-address-input"
                     />
@@ -1048,7 +1048,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                         type="text"
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                         data-testid="recipient-city-input"
                       />
@@ -1062,7 +1062,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                         type="text"
                         value={formData.state}
                         onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                         data-testid="recipient-state-input"
                       />
