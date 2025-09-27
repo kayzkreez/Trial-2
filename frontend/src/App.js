@@ -836,7 +836,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Payout Method
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <label className={`p-4 border rounded-lg cursor-pointer transition-all ${
                   formData.payout_method === 'cash_pickup' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
                 }`}>
@@ -845,7 +845,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                     name="payout_method"
                     value="cash_pickup"
                     checked={formData.payout_method === 'cash_pickup'}
-                    onChange={(e) => setFormData({ ...formData, payout_method: e.target.value })}
+                    onChange={(e) => handlePayoutMethodChange(e.target.value)}
                     className="sr-only"
                   />
                   <div className="text-center">
@@ -863,7 +863,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                     name="payout_method"
                     value="bank_transfer"
                     checked={formData.payout_method === 'bank_transfer'}
-                    onChange={(e) => setFormData({ ...formData, payout_method: e.target.value })}
+                    onChange={(e) => handlePayoutMethodChange(e.target.value)}
                     className="sr-only"
                   />
                   <div className="text-center">
@@ -872,6 +872,27 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                     <div className="text-sm text-gray-600">Direct to bank account</div>
                   </div>
                 </label>
+                
+                {formData.transfer_route === 'india_to_zim' && (
+                  <label className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    formData.payout_method === 'ecocash' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="payout_method"
+                      value="ecocash"
+                      checked={formData.payout_method === 'ecocash'}
+                      onChange={(e) => handlePayoutMethodChange(e.target.value)}
+                      className="sr-only"
+                    />
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">📱</div>
+                      <div className="font-medium">EcoCash</div>
+                      <div className="text-sm text-gray-600">Mobile money transfer</div>
+                      <div className="text-xs text-amber-600 mt-1">+5% fee</div>
+                    </div>
+                  </label>
+                )}
               </div>
             </div>
             
