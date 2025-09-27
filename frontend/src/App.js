@@ -465,7 +465,7 @@ const AuthScreen = () => {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="flex-1 bg-gradient-to-r from-teal-600 to-blue-600 text-white py-4 rounded-xl font-semibold disabled:opacity-50 hover:shadow-lg transition-all duration-200"
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-slate-700 text-white py-4 rounded-xl font-semibold disabled:opacity-50 hover:shadow-lg transition-all duration-200"
                         data-testid="register-submit-btn"
                       >
                         {loading ? 'Creating...' : 'Create Account'}
