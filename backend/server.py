@@ -561,7 +561,4 @@ logger = logging.getLogger(__name__)
 async def shutdown_db_client():
     client.close()
 
-# Health check
-@api_router.get("/health")
-async def health_check():
-    return {"status": "healthy", "timestamp": datetime.utcnow()}
+# Remove duplicate health check
