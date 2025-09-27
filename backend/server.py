@@ -48,6 +48,11 @@ class TransactionStatus(str, Enum):
 class PayoutMethod(str, Enum):
     CASH_PICKUP = "cash_pickup"
     BANK_TRANSFER = "bank_transfer"
+    ECOCASH = "ecocash"
+
+class TransferRoute(str, Enum):
+    ZIM_TO_INDIA = "zim_to_india"
+    INDIA_TO_ZIM = "india_to_zim"
 
 # Models
 class UserRegistration(BaseModel):
