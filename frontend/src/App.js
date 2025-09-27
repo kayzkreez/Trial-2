@@ -1009,10 +1009,14 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                     <h3 className="font-medium text-gray-800">{recipient.full_name}</h3>
                     <p className="text-sm text-gray-600">{recipient.phone}</p>
                     <p className="text-sm text-gray-600">{recipient.address}</p>
-                    <p className="text-sm text-gray-600">{recipient.city}, {recipient.state}</p>
+                    <p className="text-sm text-gray-600">
+                      {recipient.city}{recipient.state ? `, ${recipient.state}` : ''} - {recipient.country === 'India' ? '🇮🇳' : '🇿🇼'} {recipient.country}
+                    </p>
                     {recipient.bank_name && (
                       <p className="text-sm text-blue-600 mt-2">
                         🏦 {recipient.bank_name} - {recipient.account_number}
+                        {recipient.ifsc_code && ` (IFSC: ${recipient.ifsc_code})`}
+                        {recipient.sort_code && ` (Sort: ${recipient.sort_code})`}
                       </p>
                     )}
                   </div>
