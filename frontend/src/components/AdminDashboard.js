@@ -261,18 +261,30 @@ const UsersTab = ({ users, onUserAction, fetchData }) => {
                     {new Date(user.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-4">
-                    {user.status === 'pending' && (
+                    <div className="flex space-x-2">
+                      {user.status === 'pending' && (
+                        <button
+                          onClick={() => setSelectedUser(user)}
+                          className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                          data-testid={`verify-user-${user.id}`}
+                        >
+                          Review
+                        </button>
+                      )}
+                      {user.status === 'verified' && (
+                        <span className="text-sm text-green-600 font-medium">✓ Active</span>
+                      )}
                       <button
-                        onClick={() => setSelectedUser(user)}
-                        className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                        data-testid={`verify-user-${user.id}`}
+                        onClick={() => {
+                          setMessageData({ recipient_id: user.id, subject: '', message: '' });
+                          setShowMessageModal(true);
+                        }}
+                        className="text-sm bg-gray-600 text-white px-3 py-1 rounded hover:bg-gray-700"
+                        data-testid={`message-user-${user.id}`}
                       >
-                        Review
+                        📧 Message
                       </button>
-                    )}
-                    {user.status === 'verified' && (
-                      <span className="text-sm text-green-600 font-medium">✓ Active</span>
-                    )}
+                    </div>
                   </td>
                 </tr>
               ))}
