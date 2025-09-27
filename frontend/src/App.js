@@ -725,7 +725,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
             <button
               onClick={() => setStep(2)}
               disabled={!formData.send_amount || !rateData}
-              className="w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white py-4 rounded-xl font-semibold disabled:opacity-50 hover:shadow-lg transition-all duration-200"
+              className="w-full bg-gradient-to-r from-blue-600 to-slate-700 text-white py-4 rounded-xl font-semibold disabled:opacity-50 hover:shadow-lg transition-all duration-200"
               data-testid="continue-send-btn"
             >
               Continue
