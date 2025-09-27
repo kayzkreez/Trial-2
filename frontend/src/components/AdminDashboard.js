@@ -180,9 +180,12 @@ const OverviewTab = ({ dashboardData }) => {
   );
 };
 
-const UsersTab = ({ users, onUserAction }) => {
+const UsersTab = ({ users, onUserAction, fetchData }) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionNotes, setActionNotes] = useState('');
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [messageData, setMessageData] = useState({ recipient_id: '', subject: '', message: '' });
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   const handleAction = async (action) => {
     if (!selectedUser) return;
