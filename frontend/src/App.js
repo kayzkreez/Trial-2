@@ -885,7 +885,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
           <h2 className="text-xl font-bold text-gray-800">Recipients</h2>
           <button
             onClick={() => setShowAddForm(true)}
-            className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             data-testid="add-recipient-btn"
           >
             + Add Recipient
