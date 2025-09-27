@@ -389,7 +389,7 @@ const AuthScreen = () => {
                     <button
                       type="button"
                       onClick={() => setStep(2)}
-                      className="w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-200"
+                      className="w-full bg-gradient-to-r from-blue-600 to-slate-700 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-200"
                       data-testid="next-step-btn"
                     >
                       Next Step
