@@ -194,6 +194,22 @@ const UsersTab = ({ users, onUserAction, fetchData }) => {
     setActionNotes('');
   };
 
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    setSendingMessage(true);
+    try {
+      await axios.post('/admin/send-message', messageData);
+      toast.success(`Message sent to ${users.find(u => u.id === messageData.recipient_id)?.full_name}`);
+      setShowMessageModal(false);
+      setMessageData({ recipient_id: '', subject: '', message: '' });
+      fetchData();
+    } catch (error) {
+      toast.error('Failed to send message');
+    } finally {
+      setSendingMessage(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm p-6">
