@@ -474,7 +474,7 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
                         {transaction.send_currency || 'USD'} {transaction.send_amount}
                       </div>
                       <div className="text-sm text-gray-600">
-                        Fee: {transaction.send_currency || 'USD'} {transaction.fee_amount.toFixed(2)}
+                        Fee: USD {transaction.fee_amount.toFixed(2)}
                         {transaction.ecocash_fee > 0 && ` + USD ${transaction.ecocash_fee.toFixed(2)}`}
                       </div>
                       <div className="text-sm text-blue-600">
