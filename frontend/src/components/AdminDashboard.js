@@ -371,7 +371,9 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
                       <div className="font-medium text-gray-800" data-testid={`transaction-order-${transaction.id}`}>
                         {transaction.order_number}
                       </div>
-                      <div className="text-sm text-gray-600">To: {transaction.recipient_name}</div>
+                      <div className="text-sm text-gray-600">
+                        {transaction.transfer_route === 'zim_to_india' ? '🇿🇼 → 🇮🇳' : '🇮🇳 → 🇿🇼'} To: {transaction.recipient_name}
+                      </div>
                     </div>
                   </td>
                   <td className="px-4 py-4">
