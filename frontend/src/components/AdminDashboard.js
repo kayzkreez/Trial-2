@@ -74,7 +74,7 @@ const AdminDashboard = () => {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent text-2xl font-bold">
+              <div className="bg-gradient-to-r from-blue-600 to-slate-800 bg-clip-text text-transparent text-2xl font-bold">
                 Mula-wave Admin
               </div>
               <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-medium">
