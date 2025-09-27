@@ -710,8 +710,8 @@ const SettingsTab = () => {
               </div>
             </div>
             <div className="mt-4 text-sm text-gray-600">
-              <p><strong>Zimbabwe → India:</strong> USD amount × {formData.zim_to_india_rate} - {formData.transfer_fee_percentage}% fee</p>
-              <p><strong>India → Zimbabwe:</strong> INR amount ÷ {formData.india_to_zim_rate} - {formData.transfer_fee_percentage}% fee</p>
+              <p><strong>Zimbabwe → India:</strong> USD amount - {formData.transfer_fee_percentage}% fee (USD), then × {formData.zim_to_india_rate} = INR</p>
+              <p><strong>India → Zimbabwe:</strong> INR amount ÷ {formData.india_to_zim_rate} = USD, then - {formData.transfer_fee_percentage}% fee (USD)</p>
             </div>
           </div>
 
