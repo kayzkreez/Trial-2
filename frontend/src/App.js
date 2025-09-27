@@ -58,6 +58,9 @@ const useAuth = () => {
   return context;
 };
 
+// Export useAuth for AdminDashboard
+export { useAuth };
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
