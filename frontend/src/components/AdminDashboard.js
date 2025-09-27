@@ -351,7 +351,7 @@ const UsersTab = ({ users, onUserAction, fetchData }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-bold text-gray-800 mb-4">
-              Send Message to User
+              Send Message to {users.find(u => u.id === messageData.recipient_id)?.full_name}
             </h3>
             
             <form onSubmit={handleSendMessage} className="space-y-4">
