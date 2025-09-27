@@ -201,7 +201,16 @@ def calculate_rates(send_amount: float) -> RateCalculation:
         total_to_pay=total_to_pay
     )
 
-# Routes
+# Basic Routes
+@api_router.get("/")
+async def root():
+    return {"message": "Mula-wave Money Transfer API", "status": "running"}
+
+@api_router.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.utcnow()}
+
+# Auth Routes
 @api_router.post("/register", response_model=dict)
 async def register_user(user_data: UserRegistration):
     # Check if user already exists
