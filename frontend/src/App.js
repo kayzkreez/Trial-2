@@ -103,7 +103,7 @@ const WelcomeScreen = () => {
   }, [user, navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-gray-100">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto">
           {/* Logo and Branding */}
@@ -229,7 +229,7 @@ const AuthScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-gray-100">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto">
           {/* Header */}
