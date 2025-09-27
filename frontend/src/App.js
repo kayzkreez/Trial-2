@@ -1151,7 +1151,7 @@ const TransactionHistoryTab = ({ transactions }) => {
                   </div>
                   <div>
                     <div className="text-gray-500">Recipient Gets</div>
-                    <div className="font-medium text-teal-600">₹{transaction.receive_amount.toFixed(2)}</div>
+                    <div className="font-medium text-blue-600">₹{transaction.receive_amount.toFixed(2)}</div>
                   </div>
                 </div>
                 
