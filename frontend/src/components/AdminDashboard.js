@@ -457,15 +457,24 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Send Amount</label>
-                  <div className="text-sm text-gray-800">${selectedTransaction.send_amount}</div>
+                  <div className="text-sm text-gray-800">
+                    {selectedTransaction.send_currency || 'USD'} {selectedTransaction.send_amount}
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Fee</label>
-                  <div className="text-sm text-gray-800">${selectedTransaction.fee_amount.toFixed(2)}</div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Fees</label>
+                  <div className="text-sm text-gray-800">
+                    {selectedTransaction.send_currency || 'USD'} {selectedTransaction.fee_amount.toFixed(2)}
+                    {selectedTransaction.ecocash_fee > 0 && (
+                      <div className="text-xs text-amber-600">+USD {selectedTransaction.ecocash_fee.toFixed(2)} EcoCash</div>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Gets</label>
-                  <div className="text-sm text-blue-600">₹{selectedTransaction.receive_amount.toFixed(2)}</div>
+                  <div className="text-sm text-blue-600">
+                    {selectedTransaction.receive_currency || 'INR'} {selectedTransaction.receive_amount.toFixed(2)}
+                  </div>
                 </div>
               </div>
               
