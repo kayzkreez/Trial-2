@@ -384,9 +384,16 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
                   </td>
                   <td className="px-4 py-4">
                     <div>
-                      <div className="font-medium text-gray-800">${transaction.send_amount}</div>
-                      <div className="text-sm text-gray-600">Fee: ${transaction.fee_amount.toFixed(2)}</div>
-                      <div className="text-sm text-blue-600">₹{transaction.receive_amount.toFixed(2)}</div>
+                      <div className="font-medium text-gray-800">
+                        {transaction.send_currency || 'USD'} {transaction.send_amount}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Fee: {transaction.send_currency || 'USD'} {transaction.fee_amount.toFixed(2)}
+                        {transaction.ecocash_fee > 0 && ` + USD ${transaction.ecocash_fee.toFixed(2)}`}
+                      </div>
+                      <div className="text-sm text-blue-600">
+                        {transaction.receive_currency || 'INR'} {transaction.receive_amount.toFixed(2)}
+                      </div>
                     </div>
                   </td>
                   <td className="px-4 py-4">
