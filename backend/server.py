@@ -380,15 +380,19 @@ async def create_transaction(transaction_data: TransactionCreate, current_user: 
         raise HTTPException(status_code=404, detail="Recipient not found")
     
     # Calculate amounts
-    rates = calculate_rates(transaction_data.send_amount)
+    rates = calculate_rates(transaction_data.send_amount, transaction_data.transfer_route, transaction_data.payout_method)
     
     transaction = Transaction(
         user_id=current_user.id,
         recipient_id=transaction_data.recipient_id,
+        transfer_route=transaction_data.transfer_route,
         send_amount=transaction_data.send_amount,
+        send_currency=rates.send_currency,
         fee_amount=rates.fee_amount,
+        ecocash_fee=rates.ecocash_fee,
         exchange_rate=rates.exchange_rate,
         receive_amount=rates.receive_amount,
+        receive_currency=rates.receive_currency,
         payout_method=transaction_data.payout_method,
         payment_reference=transaction_data.payment_reference
     )
