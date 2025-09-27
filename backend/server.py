@@ -219,12 +219,17 @@ def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_me
         exchange_rate = 90.0  # INR per USD (reverse rate)
         send_currency = "INR"
         receive_currency = "USD"
-        net_amount = send_amount - fee_amount
-        receive_amount = net_amount / exchange_rate
+        
+        # First convert INR to USD
+        usd_amount = send_amount / exchange_rate
+        
+        # Then calculate 7% fee on USD amount
+        fee_amount = usd_amount * 0.07  # 7% fee on USD equivalent
+        receive_amount = usd_amount - fee_amount
         
         # Add EcoCash fee if applicable
         if payout_method == PayoutMethod.ECOCASH:
-            ecocash_fee = receive_amount * 0.05  # 5% EcoCash fee on USD amount
+            ecocash_fee = receive_amount * 0.05  # 5% EcoCash fee on final USD amount
             receive_amount = receive_amount - ecocash_fee
     
     total_to_pay = send_amount
