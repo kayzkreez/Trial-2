@@ -364,9 +364,10 @@ async def get_recipients(current_user: User = Depends(get_current_user)):
         "bank_name": r.get("bank_name"),
         "account_number": r.get("account_number"),
         "ifsc_code": r.get("ifsc_code"),
+        "sort_code": r.get("sort_code"),
         "address": r["address"],
         "city": r["city"],
-        "state": r["state"],
+        "state": r.get("state"),
         "country": r["country"]
     } for r in recipients]
 
