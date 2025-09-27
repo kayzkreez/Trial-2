@@ -134,6 +134,7 @@ class Transaction(BaseModel):
 
 class TransactionCreate(BaseModel):
     recipient_id: str
+    transfer_route: TransferRoute
     send_amount: float
     payout_method: PayoutMethod
     payment_reference: Optional[str] = None
