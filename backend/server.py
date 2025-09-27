@@ -239,18 +239,20 @@ async def calculate_rates(send_amount: float, transfer_route: TransferRoute, pay
     ecocash_fee = 0.0
     
     if transfer_route == TransferRoute.ZIM_TO_INDIA:
-        # Zimbabwe → India: NEW LOGIC - Multiply first, then subtract fee
+        # Zimbabwe → India: Calculate fee in USD first, then convert
         exchange_rate = settings.zim_to_india_rate  # INR per USD
         send_currency = "USD"
         receive_currency = "INR"
         
-        # Step 1: Convert USD to INR first (multiply by rate)
-        inr_amount = send_amount * exchange_rate
-        
-        # Step 2: Calculate and subtract fee from INR amount
+        # Step 1: Calculate fee in USD
         fee_percentage = settings.transfer_fee_percentage / 100
-        fee_amount = inr_amount * fee_percentage  # Fee in INR
-        receive_amount = inr_amount - fee_amount
+        fee_amount = send_amount * fee_percentage  # Fee in USD
+        
+        # Step 2: Subtract fee from USD amount
+        net_usd_amount = send_amount - fee_amount
+        
+        # Step 3: Convert remaining USD to INR
+        receive_amount = net_usd_amount * exchange_rate
         
     else:  # INDIA_TO_ZIM
         # India → Zimbabwe: Current logic - Convert first, then subtract fee
