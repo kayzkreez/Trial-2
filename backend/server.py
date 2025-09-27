@@ -140,10 +140,14 @@ class TransactionCreate(BaseModel):
     payment_reference: Optional[str] = None
 
 class RateCalculation(BaseModel):
+    transfer_route: TransferRoute
     send_amount: float
+    send_currency: str
     fee_amount: float
-    exchange_rate: float = 87.0
+    ecocash_fee: float = 0.0
+    exchange_rate: float
     receive_amount: float
+    receive_currency: str
     total_to_pay: float
 
 class AdminAction(BaseModel):
