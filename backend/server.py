@@ -106,11 +106,12 @@ class RecipientCreate(BaseModel):
     email: Optional[EmailStr] = None
     bank_name: Optional[str] = None
     account_number: Optional[str] = None
-    ifsc_code: Optional[str] = None
+    ifsc_code: Optional[str] = None  # For India
+    sort_code: Optional[str] = None  # For Zimbabwe
     address: str
     city: str
-    state: str
-    country: str = "India"
+    state: Optional[str] = None  # Required for India, optional for Zimbabwe
+    country: str  # "India" or "Zimbabwe"
 
 class Transaction(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
