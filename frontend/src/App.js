@@ -944,9 +944,11 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
     bank_name: '',
     account_number: '',
     ifsc_code: '',
+    sort_code: '',
     address: '',
     city: '',
-    state: ''
+    state: '',
+    country: 'India'
   });
   const [loading, setLoading] = useState(false);
 
