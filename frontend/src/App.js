@@ -716,7 +716,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                   </div>
                   <div className="border-t pt-2 flex justify-between text-base">
                     <span className="font-medium">Recipient gets:</span>
-                    <span className="font-bold text-teal-600">₹{rateData.receive_amount.toFixed(2)}</span>
+                    <span className="font-bold text-blue-600">₹{rateData.receive_amount.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
