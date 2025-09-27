@@ -1293,19 +1293,26 @@ const TransactionHistoryTab = ({ transactions }) => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
                     <div className="text-gray-500">Send Amount</div>
-                    <div className="font-medium">${transaction.send_amount}</div>
+                    <div className="font-medium">{transaction.send_currency || 'USD'} {transaction.send_amount}</div>
                   </div>
                   <div>
-                    <div className="text-gray-500">Fee</div>
-                    <div className="font-medium">${transaction.fee_amount.toFixed(2)}</div>
+                    <div className="text-gray-500">Fees</div>
+                    <div className="font-medium">
+                      {transaction.send_currency || 'USD'} {transaction.fee_amount.toFixed(2)}
+                      {transaction.ecocash_fee > 0 && (
+                        <div className="text-xs text-amber-600">+USD {transaction.ecocash_fee.toFixed(2)} EcoCash</div>
+                      )}
+                    </div>
                   </div>
                   <div>
                     <div className="text-gray-500">Exchange Rate</div>
-                    <div className="font-medium">₹{transaction.exchange_rate}</div>
+                    <div className="font-medium">₹{transaction.exchange_rate}/USD</div>
                   </div>
                   <div>
                     <div className="text-gray-500">Recipient Gets</div>
-                    <div className="font-medium text-blue-600">₹{transaction.receive_amount.toFixed(2)}</div>
+                    <div className="font-medium text-blue-600">
+                      {transaction.receive_currency || 'INR'} {transaction.receive_amount.toFixed(2)}
+                    </div>
                   </div>
                 </div>
                 
