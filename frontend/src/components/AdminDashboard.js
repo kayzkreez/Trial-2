@@ -456,7 +456,7 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Gets</label>
-                  <div className="text-sm text-teal-600">₹{selectedTransaction.receive_amount.toFixed(2)}</div>
+                  <div className="text-sm text-blue-600">₹{selectedTransaction.receive_amount.toFixed(2)}</div>
                 </div>
               </div>
               
