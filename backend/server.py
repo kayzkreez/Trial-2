@@ -428,7 +428,7 @@ async def create_transaction(transaction_data: TransactionCreate, current_user: 
         raise HTTPException(status_code=404, detail="Recipient not found")
     
     # Calculate amounts
-    rates = calculate_rates(transaction_data.send_amount, transaction_data.transfer_route, transaction_data.payout_method)
+    rates = await calculate_rates(transaction_data.send_amount, transaction_data.transfer_route, transaction_data.payout_method)
     
     transaction = Transaction(
         user_id=current_user.id,
