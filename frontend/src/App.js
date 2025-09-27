@@ -685,7 +685,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
       const response = await axios.post('/transactions', formData);
       toast.success(`Transfer order ${response.data.order_number} created successfully!`);
       setStep(1);
-      setFormData({ recipient_id: '', send_amount: '', payout_method: 'cash_pickup', payment_reference: '' });
+      setFormData({ transfer_route: 'zim_to_india', recipient_id: '', send_amount: '', payout_method: 'cash_pickup', payment_reference: '' });
       setRateData(null);
       onSuccess();
     } catch (error) {
