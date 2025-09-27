@@ -210,6 +210,7 @@ def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_me
         exchange_rate = 87.0  # INR per USD
         send_currency = "USD"
         receive_currency = "INR"
+        fee_amount = send_amount * 0.07  # 7% fee on USD
         net_amount = send_amount - fee_amount
         receive_amount = net_amount * exchange_rate
         
