@@ -385,7 +385,7 @@ async def calculate_rate(rate_data: dict):
     if isinstance(payout_method, str):
         payout_method = PayoutMethod(payout_method)
     
-    return calculate_rates(send_amount, transfer_route, payout_method)
+    return await calculate_rates(send_amount, transfer_route, payout_method)
 
 # Recipients
 @api_router.post("/recipients", response_model=dict)
