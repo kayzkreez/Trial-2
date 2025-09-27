@@ -116,10 +116,14 @@ class Transaction(BaseModel):
     order_number: str = Field(default_factory=lambda: f"MW{str(uuid.uuid4()).replace('-', '').upper()[:8]}")
     user_id: str
     recipient_id: str
-    send_amount: float  # USD
-    fee_amount: float  # USD (7%)
-    exchange_rate: float = 87.0  # INR per USD
-    receive_amount: float  # INR
+    transfer_route: TransferRoute
+    send_amount: float  # Source currency amount
+    send_currency: str  # USD or INR
+    fee_amount: float  # In source currency (7%)
+    ecocash_fee: float = 0.0  # Additional EcoCash fee if applicable
+    exchange_rate: float  # Rate applied
+    receive_amount: float  # Destination currency amount
+    receive_currency: str  # INR or USD
     payout_method: PayoutMethod
     status: TransactionStatus = TransactionStatus.PENDING
     payment_reference: Optional[str] = None
