@@ -245,7 +245,7 @@ const UsersTab = ({ users, onUserAction }) => {
                     {user.status === 'pending' && (
                       <button
                         onClick={() => setSelectedUser(user)}
-                        className="text-sm bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700"
+                        className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                         data-testid={`verify-user-${user.id}`}
                       >
                         Review
@@ -400,7 +400,7 @@ const TransactionsTab = ({ transactions, onTransactionAction }) => {
                     {transaction.status === 'pending' && (
                       <button
                         onClick={() => setSelectedTransaction(transaction)}
-                        className="text-sm bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700"
+                        className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
                         data-testid={`review-transaction-${transaction.id}`}
                       >
                         Review
