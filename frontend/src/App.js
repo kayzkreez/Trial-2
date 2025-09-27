@@ -108,7 +108,7 @@ const WelcomeScreen = () => {
         <div className="max-w-md mx-auto">
           {/* Logo and Branding */}
           <div className="text-center mb-12">
-            <div className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent text-4xl font-bold mb-4">
+            <div className="bg-gradient-to-r from-blue-600 to-slate-800 bg-clip-text text-transparent text-4xl font-bold mb-4">
               Mula-wave
             </div>
             <p className="text-gray-600 text-lg font-medium">
