@@ -779,7 +779,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                 </label>
                 
                 <label className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                  formData.payout_method === 'bank_transfer' ? 'border-teal-500 bg-teal-50' : 'border-gray-300'
+                  formData.payout_method === 'bank_transfer' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
                 }`}>
                   <input
                     type="radio"
