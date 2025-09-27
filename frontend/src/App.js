@@ -788,10 +788,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                   )}
                   <div className="flex justify-between">
                     <span>Exchange rate:</span>
-                    <span className="font-medium">
-                      {rateData.transfer_route === 'zim_to_india' ? '₹' : '₹'}{rateData.exchange_rate}
-                      {rateData.transfer_route === 'zim_to_india' ? '/USD' : '/USD'}
-                    </span>
+                    <span className="font-medium">₹{rateData.exchange_rate}/USD</span>
                   </div>
                   <div className="border-t pt-2 flex justify-between text-base">
                     <span className="font-medium">Recipient gets:</span>
