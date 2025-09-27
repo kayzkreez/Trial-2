@@ -645,6 +645,79 @@ async def update_transaction_status(transaction_id: str, action_data: AdminActio
     
     return {"message": f"Transaction {new_status} successfully"}
 
+# Admin System Settings
+@api_router.get("/admin/settings", response_model=dict)
+async def get_admin_settings(admin_user: User = Depends(get_admin_user)):
+    settings = await get_system_settings()
+    return {
+        "zim_to_india_rate": settings.zim_to_india_rate,
+        "india_to_zim_rate": settings.india_to_zim_rate,
+        "transfer_fee_percentage": settings.transfer_fee_percentage,
+        "ecocash_fee_percentage": settings.ecocash_fee_percentage,
+        "updated_at": settings.updated_at,
+        "updated_by": settings.updated_by
+    }
+
+@api_router.post("/admin/settings", response_model=dict)
+async def update_admin_settings(settings_data: dict, admin_user: User = Depends(get_admin_user)):
+    current_settings = await get_system_settings()
+    
+    # Update only provided fields
+    update_data = {
+        "zim_to_india_rate": settings_data.get("zim_to_india_rate", current_settings.zim_to_india_rate),
+        "india_to_zim_rate": settings_data.get("india_to_zim_rate", current_settings.india_to_zim_rate),
+        "transfer_fee_percentage": settings_data.get("transfer_fee_percentage", current_settings.transfer_fee_percentage),
+        "ecocash_fee_percentage": settings_data.get("ecocash_fee_percentage", current_settings.ecocash_fee_percentage),
+        "updated_at": datetime.utcnow(),
+        "updated_by": admin_user.full_name
+    }
+    
+    await db.system_settings.update_one(
+        {"id": "system_settings"},
+        {"$set": update_data},
+        upsert=True
+    )
+    
+    return {"message": "Settings updated successfully"}
+
+# Admin Individual Messaging
+@api_router.post("/admin/send-message", response_model=dict)
+async def send_individual_message(message_data: AdminMessage, admin_user: User = Depends(get_admin_user)):
+    # Verify recipient exists
+    recipient = await db.users.find_one({"id": message_data.recipient_id})
+    if not recipient:
+        raise HTTPException(status_code=404, detail="Recipient not found")
+    
+    # Create notification
+    notification = Notification(
+        user_id=message_data.recipient_id,
+        title=message_data.subject,
+        message=message_data.message,
+        message_type=MessageType.ADMIN,
+        from_admin=True
+    )
+    
+    await db.notifications.insert_one(notification.dict())
+    
+    return {
+        "message": f"Message sent successfully to {recipient['full_name']}",
+        "recipient": recipient['full_name'],
+        "subject": message_data.subject
+    }
+
+@api_router.get("/admin/users/{user_id}/messages", response_model=List[dict])
+async def get_user_messages(user_id: str, admin_user: User = Depends(get_admin_user)):
+    messages = await db.notifications.find({"user_id": user_id}).sort("created_at", -1).to_list(1000)
+    return [{
+        "id": m["id"],
+        "title": m["title"],
+        "message": m["message"],
+        "message_type": m.get("message_type", "system"),
+        "from_admin": m.get("from_admin", False),
+        "read": m["read"],
+        "created_at": m["created_at"]
+    } for m in messages]
+
 # Include router
 app.include_router(api_router)
 
