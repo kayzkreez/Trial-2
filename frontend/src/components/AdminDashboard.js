@@ -120,7 +120,7 @@ const AdminDashboard = () => {
         </div>
 
         {activeTab === 'overview' && <OverviewTab dashboardData={dashboardData} />}
-        {activeTab === 'users' && <UsersTab users={users} onUserAction={handleUserAction} />}
+        {activeTab === 'users' && <UsersTab users={users} onUserAction={handleUserAction} fetchData={fetchData} />}
         {activeTab === 'transactions' && <TransactionsTab transactions={transactions} onTransactionAction={handleTransactionAction} />}
         {activeTab === 'settings' && <SettingsTab />}
       </div>
