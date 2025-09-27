@@ -222,35 +222,54 @@ async def get_admin_user(current_user: User = Depends(get_current_user)):
         raise HTTPException(status_code=403, detail="Admin access required")
     return current_user
 
+# Get system settings
+async def get_system_settings() -> SystemSettings:
+    settings_doc = await db.system_settings.find_one({"id": "system_settings"})
+    if settings_doc:
+        return SystemSettings(**settings_doc)
+    else:
+        # Create default settings
+        default_settings = SystemSettings()
+        await db.system_settings.insert_one(default_settings.dict())
+        return default_settings
+
 # Calculate rates
-def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_method: PayoutMethod = None) -> RateCalculation:
+async def calculate_rates(send_amount: float, transfer_route: TransferRoute, payout_method: PayoutMethod = None) -> RateCalculation:
+    settings = await get_system_settings()
     ecocash_fee = 0.0
     
     if transfer_route == TransferRoute.ZIM_TO_INDIA:
-        # Zimbabwe → India: USD to INR
-        exchange_rate = 87.0  # INR per USD
+        # Zimbabwe → India: NEW LOGIC - Multiply first, then subtract fee
+        exchange_rate = settings.zim_to_india_rate  # INR per USD
         send_currency = "USD"
         receive_currency = "INR"
-        fee_amount = send_amount * 0.07  # 7% fee on USD
-        net_amount = send_amount - fee_amount
-        receive_amount = net_amount * exchange_rate
+        
+        # Step 1: Convert USD to INR first (multiply by rate)
+        inr_amount = send_amount * exchange_rate
+        
+        # Step 2: Calculate and subtract fee from INR amount
+        fee_percentage = settings.transfer_fee_percentage / 100
+        fee_amount = inr_amount * fee_percentage  # Fee in INR
+        receive_amount = inr_amount - fee_amount
         
     else:  # INDIA_TO_ZIM
-        # India → Zimbabwe: INR to USD
-        exchange_rate = 90.0  # INR per USD (reverse rate)
+        # India → Zimbabwe: Current logic - Convert first, then subtract fee
+        exchange_rate = settings.india_to_zim_rate  # INR per USD (reverse rate)
         send_currency = "INR"
         receive_currency = "USD"
         
-        # First convert INR to USD
+        # Step 1: Convert INR to USD first
         usd_amount = send_amount / exchange_rate
         
-        # Then calculate 7% fee on USD amount
-        fee_amount = usd_amount * 0.07  # 7% fee on USD equivalent
+        # Step 2: Calculate fee on USD amount
+        fee_percentage = settings.transfer_fee_percentage / 100
+        fee_amount = usd_amount * fee_percentage  # Fee in USD
         receive_amount = usd_amount - fee_amount
         
-        # Add EcoCash fee if applicable
+        # Step 3: Add EcoCash fee if applicable
         if payout_method == PayoutMethod.ECOCASH:
-            ecocash_fee = receive_amount * 0.05  # 5% EcoCash fee on final USD amount
+            ecocash_percentage = settings.ecocash_fee_percentage / 100
+            ecocash_fee = receive_amount * ecocash_percentage  # EcoCash fee on final USD amount
             receive_amount = receive_amount - ecocash_fee
     
     total_to_pay = send_amount
