@@ -909,7 +909,7 @@ const RecipientsTab = ({ recipients, onUpdate }) => {
                     <p className="text-sm text-gray-600">{recipient.address}</p>
                     <p className="text-sm text-gray-600">{recipient.city}, {recipient.state}</p>
                     {recipient.bank_name && (
-                      <p className="text-sm text-teal-600 mt-2">
+                      <p className="text-sm text-blue-600 mt-2">
                         🏦 {recipient.bank_name} - {recipient.account_number}
                       </p>
                     )}
