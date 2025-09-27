@@ -757,7 +757,7 @@ const SendMoneyTab = ({ user, recipients, onSuccess }) => {
                 value={formData.send_amount}
                 onChange={handleAmountChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                placeholder="100.00"
+                placeholder={formData.transfer_route === 'zim_to_india' ? '100.00' : '1000.00'}
                 min="1"
                 step="0.01"
                 data-testid="send-amount-input"
