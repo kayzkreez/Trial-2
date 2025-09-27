@@ -166,8 +166,24 @@ class Notification(BaseModel):
     user_id: str
     title: str
     message: str
+    message_type: MessageType = MessageType.SYSTEM
     read: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    from_admin: bool = False
+
+class SystemSettings(BaseModel):
+    id: str = Field(default="system_settings")
+    zim_to_india_rate: float = 87.0  # INR per USD
+    india_to_zim_rate: float = 90.0  # INR per USD
+    transfer_fee_percentage: float = 7.0  # 7%
+    ecocash_fee_percentage: float = 5.0  # 5%
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_by: str = "system"
+
+class AdminMessage(BaseModel):
+    recipient_id: str
+    subject: str
+    message: str
 
 # Utility functions
 def hash_pin(pin: str) -> str:
